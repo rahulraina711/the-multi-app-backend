@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const commentSchema= new mongoose.Schema({
     comment: {type: String, required: true},
     postId: {type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
-    email:{type: String, required:true}
+    userId:{type: String, required:true}
 },
 {timestamps:true});
 

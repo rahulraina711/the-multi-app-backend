@@ -1,8 +1,6 @@
 const express =require('express');
 const app = express();
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -24,9 +22,8 @@ mongoose.connect(process.env.MDB_CONNECT_STRING, {
 //setting up middlewares
 
 app.use(morgan('dev')); // dev dependency
-app.use(bodyParser.urlencoded({extended:false})); // body parser for json text
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(express.urlencoded({extended:true})); // body parser for json text
+app.use(express.json());
 // handling cors errors
 const corsOptions ={
     origin:['https://insta-like.netlify.app','http://localhost:3000'], 
@@ -50,7 +47,13 @@ const userRoute = require('./api/routes/user');
 app.use('/user', userRoute);
 
 const commentRoute = require('./api/routes/comments');
+const auth = require('./api/middleware/auth');
 app.use('/comments', commentRoute);
+
+app.get('/test', auth,(req, res)=>{
+    const user= req.userData;
+    res.status(200).json({message: "user Received", user: user});
+})
 
 
 
