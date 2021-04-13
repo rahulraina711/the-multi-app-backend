@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 exports.get_all_posts = (req, res) => {
-    const token = req.cookies.token;
-    console.log("token",token);
     Post.find().exec()
         .then(doc => {
             
@@ -24,17 +22,7 @@ exports.get_post_by_ID = (req, res, next) => {
     Post.findById(id).exec()
         .then(doc => {
             console.log(doc);
-            res.status(200).json({
-                likes:doc.likes,
-                _id: doc._id,
-                desc: doc.desc,
-                postImage: doc.postImage,
-                email: doc.email,
-                request: {
-                    type: 'GET',
-                    url: 'https://imgur-backend.herokuapp.com/posts/' + doc._id
-                }
-            });
+            res.status(200).json(doc);
         })
         .catch(err => {
             res.status(400).json({
@@ -48,7 +36,6 @@ exports.post_image = (req, res) => {
     const post = new Post({
         desc: req.body.desc,
         postImage: req.file.path,
-        email: req.userData.email,
         userId: req.userData.userId
     });
     post.save().then((result) => {
@@ -59,11 +46,7 @@ exports.post_image = (req, res) => {
             name: result.name,
             desc: result.desc,
             postImage: result.postImage,
-            email: result.email,
-            request: {
-                type: 'GET',
-                url: 'https://imgur-backend.herokuapp.com/posts/' + result._id
-            },
+            isEvent: result.isEvent,
         })
     }).catch((err) => {
         console.log(err)

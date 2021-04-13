@@ -74,3 +74,13 @@ exports.get_user = async function(req, res, next) {
     const user = await User.findById(userId);
     res.status(200).json(user);
 }
+
+exports.set_user = async function(req, res, next) {
+    const {id} = req.params;
+    const{name,about,occupation} = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(id,{name,about,occupation})
+    const user = await User.findById(id);
+    //console.log(user);
+    res.status(200).json(user);
+}
