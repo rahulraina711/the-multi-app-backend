@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const Comment = require('../models/comment_model');
+const Post = require('../models/post_model');
 
 
 
-// get all comments ona specific post
-router.get("/:id",auth,(req, res)=>{
-    const postId = req.params.id;
+// get comment based on ID
+router.get("/:id",(req, res)=>{
+    const id = req.params.id;
 
-    Comment.find({postId : postId}).exec()
+    Comment.findById(id).exec()
     .then(docs => {
         res.status(201).json(docs);
-        console.log(docs)
+        //console.log(docs)
     })
     .catch(err=>{
         res.status(400).json({message: err});
@@ -26,10 +27,11 @@ router.post("/:id",auth, (req, res)=>{
 
     const comment = new Comment({
         comment: req.body.comment,
-        postId: req.body.postId,
-        email:req.userData.email
+        postId: postId,
+        userId:req.userData.userId
     });
-    comment.save().then(doc=>{
+    comment.save().then(async doc=>{
+        const comm = await Post.findByIdAndUpdate(postId,{$push:{comments: doc.id}})
         res.status(201).json(doc)
     }).catch(err=>{
         res.status(401).json({message: err})

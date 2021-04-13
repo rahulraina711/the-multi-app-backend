@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 exports.get_all_posts = (req, res) => {
-    Post.find().exec()
+    Post.find().populate('Comment').exec()
         .then(doc => {
             
             // console.log("displaying all documents")
@@ -36,7 +36,8 @@ exports.post_image = (req, res) => {
     const post = new Post({
         desc: req.body.desc,
         postImage: req.file.path,
-        userId: req.userData.userId
+        userId: req.userData.userId,
+        isEvent: req.body.isEvent || "false"
     });
     post.save().then((result) => {
         console.log(result);
