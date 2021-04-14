@@ -6,7 +6,8 @@ const userSchema= new mongoose.Schema({
     typeOfUser : {type: String, default: "gamer"},
     profilePic: {type: String},
     about:{type: String},
-    occupation:{type: String}
+    occupation:{type: String},
+    orders:[{type: mongoose.Schema.Types.ObjectId,ref: 'Order'}]
 },{
     timestamps:true
 });

@@ -47,13 +47,21 @@ const userRoute = require('./api/routes/user');
 app.use('/user', userRoute);
 
 const commentRoute = require('./api/routes/comments');
-const auth = require('./api/middleware/auth');
 app.use('/comments', commentRoute);
 
-app.get('/test', auth,(req, res)=>{
-    const user= req.userData;
-    res.status(200).json({message: "user Received", user: user});
-})
+const productRoute = require('./api/routes/products_route');
+app.use('/products', productRoute);
+
+const orderRoute = require('./api/routes/orders_route');
+app.use('/orders', orderRoute);
+
+const searchRoute = require('./api/routes/search_products_route');
+app.use('/', searchRoute);
+
+const likeUnlikeRoutes = require('./api/routes/like_routes');
+app.use('/likeops', likeUnlikeRoutes);
+
+
 
 
 
