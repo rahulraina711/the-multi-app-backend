@@ -88,30 +88,15 @@ exports.patch_a_post = (req, res, next) => {
         });
 }
 
-exports.delete_a_post = (req, res, next) => {
-    const logEmail = req.userData.email;
+exports.delete_a_post =async (req, res, next) => {
     const id = req.params.id;
-    // verify
-    Post.findById(id).exec()
-        .then(doc => {
-            if (doc.email !== logEmail) {
-                return res.status(400).json({
-                    message: "Access Denied"
-                })
-            }
-            else{
-                Post.findByIdAndDelete(id).exec()
-                .then(doc => {       
-                    res.status(200).json({
-                        message: "Item deleted successfully"
-                    });
-                })
-            }
-        })      
-        .catch(err => {
-            res.status(400).json({
-                message: err
-            });
-        });
+
+    try{
+        const deletepost = await Post.findByIdAndDelete(id);
+        res.status(204).json({message:"post deleted"})
+    }
+    catch(err){
+        res.status(500).json(err) 
+    }
 
 }
