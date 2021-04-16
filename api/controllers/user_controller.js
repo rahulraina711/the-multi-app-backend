@@ -79,8 +79,13 @@ exports.set_user = async function(req, res, next) {
     const {id} = req.params;
     const{name,about,occupation} = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(id,{name,about,occupation})
-    const user = await User.findById(id);
-    //console.log(user);
-    res.status(200).json(user);
+    console.log(id,name,about,occupation);
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id,{$set:{name,about,occupation}})
+        const user = await User.findById(id);
+        res.status(200).json(user);
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
 }

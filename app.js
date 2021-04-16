@@ -26,7 +26,7 @@ app.use(express.urlencoded({extended:true})); // body parser for json text
 app.use(express.json());
 // handling cors errors
 const corsOptions ={
-    origin:['https://insta-like.netlify.app','http://localhost:3000'], 
+    origin:['https://gamers-dash.netlify.app','http://localhost:3000'], 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
