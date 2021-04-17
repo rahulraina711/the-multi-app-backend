@@ -61,6 +61,9 @@ app.use('/', searchRoute);
 const likeUnlikeRoutes = require('./api/routes/like_routes');
 app.use('/likeops', likeUnlikeRoutes);
 
+const gc = require('./api/routes/googleCalendar');
+app.use('/calendar', gc);
+
 
 
 
