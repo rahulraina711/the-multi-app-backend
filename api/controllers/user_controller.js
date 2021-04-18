@@ -25,7 +25,7 @@ exports.sign_in = async (req, res, next) => {
             const token = jwt.sign({
                 userId: existingUser._id
             }, process.env.JWT_KEY, {
-                expiresIn: "2h"
+                expiresIn: "21h"
             })
             return res.status(201).json({authToken: token, user: existingUser})
         }
@@ -40,7 +40,7 @@ exports.sign_in = async (req, res, next) => {
             const newToken = jwt.sign({
                 userId: savedUser._id
             }, process.env.JWT_KEY, {
-                expiresIn: "2h"
+                expiresIn: "21h"
             })
             return res.status(201).json({authToken: newToken, user: savedUser});
         }
