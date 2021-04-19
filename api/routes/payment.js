@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Insta = require('instamojo-nodejs');
+const auth = require('../middleware/auth');
 const API_KEY = process.env.API_KEY;
 const AUTH_KEY = process.env.AUTH_KEY;
 
-router.post("/" ,(req, res)=>{
+router.post("/" ,auth,(req, res)=>{
     const purpose = "gamers dash payment";
     const amount= req.body.amount;
     Insta.setKeys(API_KEY, AUTH_KEY);
@@ -16,7 +17,8 @@ router.post("/" ,(req, res)=>{
 
     data.purpose = purpose;
     data.amount = amount;
-    data.setRedirectUrl("/payment/success");
+    const RDR = process.env.NODE_ENV==="dev" ? "http://localhost:3100/payment/success" : "https://gamers-dash.herokuapp.com" 
+    data.setRedirectUrl(RDR);
     Insta.createPayment(data, (err, response)=>{
         if(err){
            return res.status(500).json({message: err})
