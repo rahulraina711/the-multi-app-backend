@@ -64,6 +64,9 @@ app.use('/likeops', likeUnlikeRoutes);
 const gc = require('./api/routes/googleCalendar');
 app.use('/calendar', gc);
 
+const payment = require('./api/routes/payment');
+app.use('/payment', payment);
+
 
 
 
