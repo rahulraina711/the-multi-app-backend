@@ -67,6 +67,9 @@ app.use('/calendar', gc);
 const payment = require('./api/routes/payment');
 app.use('/payment', payment);
 
+const flagPost = require('./api/routes/flag_route');
+app.use('/flag', flagPost);
+
 
 
 

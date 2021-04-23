@@ -17,7 +17,7 @@ router.post("/" ,auth,(req, res)=>{
 
     data.purpose = purpose;
     data.amount = amount;
-    const RDR = process.env.NODE_ENV==="dev" ? "http://localhost:3100/payment/success" : "https://gamers-dash.herokuapp.com" 
+    const RDR = process.env.NODE_ENV==="dev" ? "http://localhost:3100/payment/success" : "https://gamers-dash.herokuapp.com/payment/success" 
     data.setRedirectUrl(RDR);
     Insta.createPayment(data, (err, response)=>{
         if(err){
