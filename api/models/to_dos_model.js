@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const todoSchema= new mongoose.Schema({
-    comment: {type: String, required: true},
-    postId: {type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
-    userId:{type: String, required:true}
+    caption:{type: String, required:true},
+    description:{type: String, default:"No description Available"},
+    points:[{type: String}],
+    userId:{type: String, required:true},
+    private:{type: Boolean, default: false}
 },
 {timestamps:true});
 

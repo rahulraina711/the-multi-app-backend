@@ -1,7 +1,8 @@
 const User = require('../models/user_model')
 const jwt = require('jsonwebtoken');
-const Product = require('../models/post_model');
 
+
+// unified sign up or sign in
 exports.sign_in = async (req, res, next) => {
     try {
         //(a password and email validation can be added here as well)
@@ -52,29 +53,30 @@ exports.sign_in = async (req, res, next) => {
     }
 }
 
+// get users stuff
+// exports.get_user_posts = (req, res, next) => {
+//     let email = req.query.email;
+//     Product.find({
+//             email: email
+//         }).exec()
+//         .then(docs => {
+//             //console.log("displaying all documents")
+//             res.status(200).json(docs);
 
-exports.get_user_posts = (req, res, next) => {
-    let email = req.query.email;
-    Product.find({
-            email: email
-        }).exec()
-        .then(docs => {
-            //console.log("displaying all documents")
-            res.status(200).json(docs);
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         });
 
-        })
-        .catch((err) => {
-            console.log(err)
-        });
-
-}
-
+// }
+// details about a user from id
 exports.get_user = async function(req, res, next) {
     const userId = req.params.id;
     const user = await User.findById(userId);
     res.status(200).json(user);
 }
 
+// setting user details
 exports.set_user = async function(req, res, next) {
     const {id} = req.params;
     const{name,about,occupation} = req.body;
