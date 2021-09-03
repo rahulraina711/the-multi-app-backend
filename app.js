@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const dotenv = require("dotenv"); // dev dependency
 
-
+console.log("vfvfvfvf");
 dotenv.config(); // for .env variable (useless in heroku)
 
 // connecting to mongoDB
